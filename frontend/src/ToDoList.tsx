@@ -30,6 +30,12 @@ export default function ToDoList() {
   };
 
   const removeItem = (item: string) => {
+    const confirmedDelete = window.confirm(
+      `Are you sure you want to delete "${item}"?`
+    );
+
+    if (!confirmedDelete) return;
+
     setItems((prev) => prev.filter((i) => i !== item));
     setCheckedItems((prev) => {
       const copy = { ...prev };
@@ -78,8 +84,10 @@ export default function ToDoList() {
             <button
               className="todolist-trashbutton"
               onClick={() => removeItem(item)}
+              title="Delete Task"
+              aria-label={`Delete ${item}`}
             >
-              Del
+              ×
             </button>
           </li>
         ))}
